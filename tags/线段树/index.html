@@ -6,21 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>洛谷P2146 [NOI2015]软件包管理器 题解 | Catalan1906&#39;s blog</title>
+  <title>Tag: 线段树 | Catalan1906&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="题意：给定n个软件的依赖关系（除软件0不依赖任何软件，每个软件只依赖一个软件；无环），求每次安装或卸载一个软件会改变多少软件的安装状态。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="洛谷P2146 [NOI2015]软件包管理器 题解">
-<meta property="og:url" content="http://yoursite.com/2020/02/26/luogu-p2146/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Catalan1906&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/index.html">
 <meta property="og:site_name" content="Catalan1906&#39;s blog">
-<meta property="og:description" content="题意：给定n个软件的依赖关系（除软件0不依赖任何软件，每个软件只依赖一个软件；无环），求每次安装或卸载一个软件会改变多少软件的安装状态。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-25T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-02-26T07:58:04.675Z">
 <meta property="article:author" content="Catalan1906">
-<meta property="article:tag" content="dfs序">
-<meta property="article:tag" content="树链剖分">
-<meta property="article:tag" content="线段树">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Catalan1906&#39;s blog" type="application/atom+xml">
@@ -151,42 +144,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-luogu-p2146" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      洛谷P2146 [NOI2015]软件包管理器 题解
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/26/luogu-p2146/" class="archive-article-date">
+  	<time datetime="2020-02-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/26/luogu-p2146/">洛谷P2146 [NOI2015]软件包管理器 题解</a>
     </h1>
   
 
-        
-        <a href="/2020/02/26/luogu-p2146/" class="archive-article-date">
-  	<time datetime="2020-02-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题意：<br>给定n个软件的依赖关系（除软件0不依赖任何软件，每个软件只依赖一个软件；无环），求每次安装或卸载一个软件会改变多少软件的安装状态。<br><a id="more"></a></p>
-<hr>
-<p>首先这$n$个软件的依赖关系是一棵树。</p>
-<p>我们可以设软件0为根，其他软件依赖哪个软件哪个软件就是这个软件的父节点。</p>
-<p>增加一个软件就是把这个软件到根节点的路径上的软件全部安装。</p>
-<p>卸载一个软件就是把以这个软件为根节点的字数中的软件全部卸载。</p>
-<p>更改软件的个数直接在操作前求一下就行了。 </p>
-<p>所以这题最终就是 子树/路径 的 修改/查询，树链剖分板子题。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> t, nxt;</span><br><span class="line">&#125; e[<span class="number">200010</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, head[<span class="number">100010</span>], cnt, fa[<span class="number">100010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">	cnt++;</span><br><span class="line">	e[cnt].t = t;</span><br><span class="line">	e[cnt].nxt = head[s];</span><br><span class="line">	head[s] = cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">is_digit</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> c &lt;= <span class="string">'9'</span> &amp;&amp; c &gt;= <span class="string">'0'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> c = getchar();</span><br><span class="line">	<span class="keyword">while</span>(!is_digit(c)) c = getchar();</span><br><span class="line">	<span class="keyword">while</span>(is_digit(c)) tmp = (tmp &lt;&lt; <span class="number">1</span>) + (tmp &lt;&lt; <span class="number">3</span>) + (c ^ <span class="number">48</span>), c = getchar();</span><br><span class="line">	<span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x &gt; <span class="number">9</span>) write(x / <span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>((x % <span class="number">10</span>) ^ <span class="number">48</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">is_alpha</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> SegTree[<span class="number">400010</span>], lazy[<span class="number">400010</span>], dfn[<span class="number">100010</span>], size[<span class="number">100010</span>], dfs_cnt, top[<span class="number">100010</span>], sz[<span class="number">400010</span>], depth[<span class="number">100010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	size[x] = <span class="number">1</span>;</span><br><span class="line">	depth[x] = depth[fa[x]] + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = head[x]; i ; i = e[i].nxt) &#123;</span><br><span class="line">		<span class="keyword">if</span>(e[i].t == fa[x]) <span class="keyword">continue</span> ;</span><br><span class="line">		dfs1(e[i].t);</span><br><span class="line">		size[x] += size[e[i].t];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> tp)</span> </span>&#123;</span><br><span class="line">	dfn[x] = ++dfs_cnt;</span><br><span class="line">	<span class="keyword">int</span> maxs = <span class="number">0</span>;</span><br><span class="line">	top[x] = tp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = head[x]; i ; i = e[i].nxt) &#123;</span><br><span class="line">		<span class="keyword">if</span>(e[i].t == fa[x]) <span class="keyword">continue</span> ;</span><br><span class="line">		<span class="keyword">if</span>(!maxs) maxs = e[i].t;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(size[maxs] &lt; size[e[i].t]) maxs = e[i].t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!maxs) <span class="keyword">return</span> ;</span><br><span class="line">	dfs2(maxs, tp);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = head[x]; i ; i = e[i].nxt) &#123;</span><br><span class="line">		<span class="keyword">if</span>(e[i].t == fa[x]) <span class="keyword">continue</span> ;</span><br><span class="line">		<span class="keyword">if</span>(e[i].t == maxs) <span class="keyword">continue</span> ;</span><br><span class="line">		dfs2(e[i].t, e[i].t);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">lson</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x &lt;&lt; <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">rson</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x &lt;&lt; <span class="number">1</span> | <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	SegTree[x] = SegTree[lson(x)] + SegTree[rson(x)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; r) <span class="keyword">return</span> ;</span><br><span class="line">	lazy[p] = <span class="number">-1</span>;</span><br><span class="line">	sz[p] = r - l + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(l == r) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	build(l, mid, lson(p));</span><br><span class="line">	build(mid + <span class="number">1</span>, r, rson(p));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(lazy[x] == <span class="number">-1</span>) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">if</span>(lazy[x]) SegTree[lson(x)] = sz[lson(x)], SegTree[rson(x)] = sz[rson(x)];</span><br><span class="line">	<span class="keyword">else</span> SegTree[lson(x)] = SegTree[rson(x)] = <span class="number">0</span>;</span><br><span class="line">	lazy[lson(x)] = lazy[x];</span><br><span class="line">	lazy[rson(x)] = lazy[x];</span><br><span class="line">	lazy[x] = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> ml, <span class="keyword">int</span> mr, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> p, <span class="keyword">int</span> opt)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; r) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; mr || r &lt; ml) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">if</span>(ml &lt;= l &amp;&amp; r &lt;= mr) &#123;</span><br><span class="line">		<span class="keyword">if</span>(opt) SegTree[p] = sz[p];</span><br><span class="line">		<span class="keyword">else</span> SegTree[p] = <span class="number">0</span>;</span><br><span class="line">		lazy[p] = opt;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	pushdown(p);</span><br><span class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	modify(ml, mr, l, mid, lson(p), opt);</span><br><span class="line">	modify(ml, mr, mid + <span class="number">1</span>, r, rson(p), opt);</span><br><span class="line">	pushup(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> ql, <span class="keyword">int</span> qr, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; r) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; qr || r &lt; ql) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(ql &lt;= l &amp;&amp; r &lt;= qr) <span class="keyword">return</span> SegTree[p];</span><br><span class="line">	pushdown(p);</span><br><span class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> query(ql, qr, l, mid, lson(p)) + query(ql, qr, mid + <span class="number">1</span>, r, rson(p));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qtree</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> query(dfn[x], dfn[x] + size[x] - <span class="number">1</span>, <span class="number">1</span>, n, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qpath</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(x) &#123;</span><br><span class="line">		res += query(dfn[top[x]], dfn[x], <span class="number">1</span>, n, <span class="number">1</span>);</span><br><span class="line">		x = fa[top[x]];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mtree</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	modify(dfn[x], dfn[x] + size[x] - <span class="number">1</span>, <span class="number">1</span>, n, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mpath</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(x) &#123;</span><br><span class="line">		modify(dfn[top[x]], dfn[x], <span class="number">1</span>, n, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		x = fa[top[x]];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	n = read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		fa[i] = read() + <span class="number">1</span>;</span><br><span class="line">		add_edge(fa[i], i);</span><br><span class="line">		add_edge(i, fa[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	build(<span class="number">1</span>, n, <span class="number">1</span>); </span><br><span class="line">	dfs1(<span class="number">1</span>);</span><br><span class="line">	dfs2(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	m = read();</span><br><span class="line">	<span class="keyword">while</span>(m--) &#123;</span><br><span class="line">		<span class="keyword">char</span> c = getchar();</span><br><span class="line">		<span class="keyword">while</span>(!is_alpha(c)) c = getchar();</span><br><span class="line">		<span class="keyword">int</span> x = read() + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(c == <span class="string">'i'</span>) &#123;</span><br><span class="line">			write(depth[x] - qpath(x)), <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">			mpath(x);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			write(qtree(x)), <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">			mtree(x);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -206,7 +193,7 @@
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -219,104 +206,17 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/26/luogu-p2146/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
   
   
-    <a href="/2020/02/24/luogu-p3066/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">洛谷P3066 [USACO12DEC]Running Away From the Barn G 题解</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -339,9 +239,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
