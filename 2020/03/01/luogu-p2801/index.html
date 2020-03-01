@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 主席树 | Catalan1906&#39;s blog</title>
+  <title>洛谷P2801 教主的魔法 题解 | Catalan1906&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Catalan1906&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/%E4%B8%BB%E5%B8%AD%E6%A0%91/index.html">
+  <meta name="description" content="题意：给定一个长度为 $n$ 序列和 $m$ 次操作，每次操作可以把一段区间内的每一个数都加上一个指定的数，或查询一段区间内的数有多少个大于某个指定的数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="洛谷P2801 教主的魔法 题解">
+<meta property="og:url" content="http://yoursite.com/2020/03/01/luogu-p2801/index.html">
 <meta property="og:site_name" content="Catalan1906&#39;s blog">
+<meta property="og:description" content="题意：给定一个长度为 $n$ 序列和 $m$ 次操作，每次操作可以把一段区间内的每一个数都加上一个指定的数，或查询一段区间内的数有多少个大于某个指定的数。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-01T10:38:45.217Z">
 <meta property="article:author" content="Catalan1906">
+<meta property="article:tag" content="分块">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Catalan1906&#39;s blog" type="application/atom+xml">
@@ -144,52 +149,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-luogu-p2801" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/24/luogu-p3066/" class="archive-article-date">
-  	<time datetime="2020-02-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/24/luogu-p3066/">洛谷P3066 [USACO12DEC]Running Away From the Barn G 题解</a>
+    <h1 class="article-title" itemprop="name">
+      洛谷P2801 教主的魔法 题解
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/03/01/luogu-p2801/" class="archive-article-date">
+  	<time datetime="2020-02-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：<br>给定一个长度为 $n$ 序列和 $m$ 次操作，每次操作可以把一段区间内的每一个数都加上一个指定的数，或查询一段区间内的数有多少个大于某个指定的数。<br><a id="more"></a></p>
+<hr>
+<p>分块板子题。</p>
+<p>首先在每个块内把块内元素排序。</p>
+<p>对于修改操作，可以把整块打上标记，零散块暴力修改排序。</p>
+<p>对于查询操作，可以在整块内二分，零散块暴力查询。</p>
+<p>我这写法有些问题，$n$ 比较小的时候会有错误，这时候暴力一下就可以了……</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tag[<span class="number">1010</span>], n, q, block_size, a[<span class="number">1000010</span>], blcnt, l[<span class="number">1010</span>], r[<span class="number">1010</span>], b[<span class="number">1000010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">is_digit</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> c &lt;= <span class="string">'9'</span> &amp;&amp; c &gt;= <span class="string">'0'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> c = getchar();</span><br><span class="line">	<span class="keyword">while</span>(!is_digit(c)) c = getchar();</span><br><span class="line">	<span class="keyword">while</span>(is_digit(c)) tmp = (tmp &lt;&lt; <span class="number">1</span>) + (tmp &lt;&lt; <span class="number">3</span>) + (c ^ <span class="number">48</span>), c = getchar();</span><br><span class="line">	<span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x &gt; <span class="number">9</span>) write(x / <span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>((x % <span class="number">10</span>) ^ <span class="number">48</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">subtask1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(q--) &#123;</span><br><span class="line">		<span class="keyword">char</span> opt = getchar();</span><br><span class="line">		<span class="keyword">while</span>(!<span class="built_in">isalpha</span>(opt)) opt = getchar();</span><br><span class="line">		<span class="keyword">int</span> l = read(), r = read(), c = read();</span><br><span class="line">		<span class="keyword">if</span>(opt == <span class="string">'M'</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = l; i &lt;= r; i++) a[i] += c;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = l; i &lt;= r; i++) </span><br><span class="line">				<span class="keyword">if</span>(a[i] &gt;= c) ans++;</span><br><span class="line">			write(ans), <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	n = read(), q = read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) b[i] = a[i] = read();</span><br><span class="line">	<span class="keyword">if</span>(n &lt;= <span class="number">4</span>) subtask1();</span><br><span class="line">	block_size = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	blcnt = n / block_size;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= blcnt; i++) l[i] = (i - <span class="number">1</span>) * block_size + <span class="number">1</span>, r[i] = i * block_size;</span><br><span class="line">	<span class="keyword">if</span>(n % block_size) &#123;</span><br><span class="line">		blcnt++;</span><br><span class="line">		l[blcnt] = r[blcnt - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">		r[blcnt] = n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= blcnt; i++) sort(b + l[i], b + r[i] + <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">while</span>(q--) &#123;</span><br><span class="line">		<span class="keyword">char</span> opt = getchar();</span><br><span class="line">		<span class="keyword">while</span>(!<span class="built_in">isalpha</span>(opt)) opt = getchar();</span><br><span class="line">		<span class="keyword">int</span> ql = read(), qr = read(), c = read();</span><br><span class="line">		<span class="keyword">int</span> lbl = (ql + block_size - <span class="number">2</span>) / block_size + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> rbl = (qr - <span class="number">1</span>) / block_size + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">// cout &lt;&lt; lbl &lt;&lt; " " &lt;&lt; rbl &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">if</span>(opt == <span class="string">'A'</span>) &#123;</span><br><span class="line">			<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = lbl; i &lt;= rbl; i++) &#123;</span><br><span class="line">				<span class="keyword">int</span> lb = l[i], rb = r[i], res = <span class="number">-1</span>;</span><br><span class="line">				<span class="keyword">while</span>(lb &lt;= rb) &#123;</span><br><span class="line">					<span class="keyword">int</span> mid = (lb + rb) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">if</span>(b[mid] + tag[i] &gt;= c) &#123;</span><br><span class="line">						rb = mid - <span class="number">1</span>;</span><br><span class="line">						res = mid;</span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						lb = mid + <span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(res != <span class="number">-1</span>) ans += r[i] - res + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">int</span> ll = l[lbl], rr = r[rbl];</span><br><span class="line">			<span class="keyword">if</span>(ql &lt; ll) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = ql; i &lt; ll; i++) &#123;</span><br><span class="line">					<span class="keyword">if</span>(a[i] + tag[lbl - <span class="number">1</span>] &gt;= c) ans++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(qr &gt; rr) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = rr + <span class="number">1</span>; i &lt;= qr; i++) &#123;</span><br><span class="line">					<span class="keyword">if</span>(a[i] + tag[rbl + <span class="number">1</span>] &gt;= c) ans++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			write(ans), <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = lbl; i &lt;= rbl; i++) tag[i] += c;</span><br><span class="line">			<span class="keyword">int</span> ll = l[lbl], rr = r[rbl];</span><br><span class="line">			<span class="keyword">if</span>(ql &lt; ll) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = ql; i &lt;= r[lbl - <span class="number">1</span>]; i++) a[i] += c;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = l[lbl - <span class="number">1</span>]; i &lt;= r[lbl - <span class="number">1</span>]; i++) b[i] = a[i];</span><br><span class="line">				sort(b + l[lbl - <span class="number">1</span>], b + r[lbl - <span class="number">1</span>] + <span class="number">1</span>); </span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(qr &gt; rr) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = l[rbl + <span class="number">1</span>]; i &lt;= qr; i++) a[i] += c;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = l[rbl + <span class="number">1</span>]; i &lt;= r[rbl + <span class="number">1</span>]; i++) b[i] = a[i];</span><br><span class="line">				sort(b + l[rbl + <span class="number">1</span>], b + r[rbl + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">dfs序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">主席树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分块</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -202,17 +208,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/01/luogu-p2801/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/02/29/CF220B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CF220B Little Elephant and Array 题解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -235,9 +328,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
