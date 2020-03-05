@@ -16,7 +16,7 @@
 <meta property="og:description" content="题意：一个有 $n$ 个数的序列，要求找出 $k$ 个长度不小于 $L$ 且不大于 $R$ 的区间，使得它们所对应的区间内数的和最大。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-05T12:39:51.278Z">
+<meta property="article:modified_time" content="2020-03-05T12:42:05.239Z">
 <meta property="article:author" content="Catalan1906">
 <meta property="article:tag" content="ST表">
 <meta property="article:tag" content="堆">
@@ -186,7 +186,7 @@
 <hr>
 <p>我们的策略肯定是先取最大的，再取次大的，依次类推。</p>
 <p>设 $g_{f,l,r}$ 表示左断点为 $f$，右端点在 $[l,r]$ 内的最大值</p>
-<p>这个最大值就是 $max\{sum_x-sum_{l-1}\}(l \leq x \leq r)$</p>
+<p>这个最大值就是 $\max\{sum_x-sum_{l-1}\}(l \leq x \leq r)$</p>
 <p>（这里有一个前缀和很容易能看出来）</p>
 <p>先考虑 $f$ 一定的情况</p>
 <p>把 $sum_{l-1}$ 提出来就是 $\max\{sum_x\}(l \leq x \leq r) - sum_{f - 1}$</p>
@@ -457,6 +457,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ST表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">莫队</a>
               </li>
              
@@ -470,14 +478,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">线段树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ST表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
              
               <li class="article-tag-list-item">
