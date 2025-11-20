@@ -1,0 +1,22 @@
+body {
+  background: rgba(256, 256, 256, 0.9) url('../files/pic/0/dff60669ly1gygf2c2a02j29mo4g0qv8.jpg');
+  background-blend-mode: screen;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+:root > * {
+  --md-code-hl-string-color: #718C00;
+  --md-code-hl-number-color: #F4861F;
+  --md-code-hl-special-color: #F5871F;
+  --md-code-hl-function-color: #4271AE;
+  --md-code-hl-keyword-color: #8959A8;
+  --md-code-hl-name-color: #3F3F3F;
+  --md-code-hl-operator-color: #3F3F3F;
+  --md-code-hl-punctuation-color: #3F3F3F;
+  --md-code-hl-comment-color: #8E908C;
+  --md-code-bg-color: #F6F6F6;
+  --md-code-hl-color: #E9E9E9;
+}

@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://catalan1906.github.io/</loc>
+         <lastmod>2025-11-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://catalan1906.github.io/main/mkdocs/site_setup/</loc>
+         <lastmod>2025-11-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://catalan1906.github.io/python/</loc>
+         <lastmod>2025-11-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://catalan1906.github.io/python/basic_syntax/</loc>
+         <lastmod>2025-11-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
 </urlset>
